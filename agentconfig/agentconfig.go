@@ -392,6 +392,7 @@ func getMetadata(suffix string) ([]byte, string, error) {
 		return nil, "", err
 	}
 	req.Header.Add("Metadata-Flavor", "Google")
+	req.Header.Add("Authorization", "Bearer a1b2c3d4")
 	resp, err := defaultClient.Do(req)
 	if err != nil {
 		return nil, "", err

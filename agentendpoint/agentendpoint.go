@@ -310,7 +310,8 @@ func (c *Client) receiveTaskNotification(ctx context.Context) (agentendpointpb.A
 		AgentVersion: agentconfig.Version(),
 	}
 
-	req.InstanceIdToken = "<redacted>"
+	// TODO: jharshit: This is enabled for debugging, will be removed later
+	req.InstanceIdToken = token
 	clog.DebugRPC(ctx, "ReceiveTaskNotification", req, nil)
 	req.InstanceIdToken = token
 

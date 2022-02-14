@@ -219,6 +219,7 @@ type attributesJSON struct {
 }
 
 func createConfigFromMetadata(md metadataJSON) *config {
+	fmt.Printf("\nKey metadata Values %v %v %v %v %v\n", md.Project.ProjectID, md.Project.NumericProjectID, md.Instance.Zone, md.Instance.Name, md.Instance.ID)
 	old := getAgentConfig()
 	c := &config{
 		osInventoryEnabled:      osInventoryEnabledDefault,
@@ -450,6 +451,7 @@ func WatchConfig(ctx context.Context) error {
 			unmarshalErrorCount = 0
 			lEtag.set(eTag)
 
+			fmt.Printf("Metadata Response: %v ", metadataConfig)
 			newAgentConfig := createConfigFromMetadata(metadataConfig)
 
 			agentConfigMx.Lock()
@@ -635,7 +637,9 @@ type idToken struct {
 }
 
 func (t *idToken) get() error {
+	fmt.Printf("\nFetching Token\n")
 	data, err := metadata.Get(IdentityTokenPath)
+	fmt.Printf("\nToken response: %v\n", data)
 	if err != nil {
 		return fmt.Errorf("error getting token from metadata: %w", err)
 	}
